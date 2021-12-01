@@ -22,6 +22,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+//注入Swagger
 builder.Services.AddSwaggerUI();
 
 //添加全局错误
@@ -34,7 +35,7 @@ builder.WebHost.UseDefaultAgileConfig();
 //AutoFac注册服务
 AutofacExtensions.AddService();
 
-//数据库
+//注册一主多从数据库
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
 
@@ -45,6 +46,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+//使用Swagger
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 

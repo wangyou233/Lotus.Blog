@@ -114,7 +114,6 @@ namespace Lotus.Blog.TNT.Swagger
                 options.DocExpansion(DocExpansion.List);
                 //// API前缀设置为空
                 options.DocumentTitle = "忘忧小站";
-                options.
             });
         }
     }

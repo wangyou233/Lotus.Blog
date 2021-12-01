@@ -27,4 +27,9 @@
     <ProjectReference Include="..\Lotus.Blog.EntityFrameworkCore\Lotus.Blog.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\api\" />
+    <Folder Include="Controllers\admin\" />
+  </ItemGroup>
+
 </Project>

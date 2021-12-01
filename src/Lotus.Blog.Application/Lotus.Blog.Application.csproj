@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lotus.Blog.Application.Contracts\Lotus.Blog.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Lotus.Blog.Domain\Lotus.Blog.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA5351: Do Not Use Broken Cryptographic Algorithms
+dotnet_diagnostic.CA5351.severity = none

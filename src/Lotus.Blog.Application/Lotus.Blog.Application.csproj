@@ -6,6 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\Lotus.Blog.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\Lotus.Blog.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Lotus.Blog.Application.Contracts\Lotus.Blog.Application.Contracts.csproj" />
     <ProjectReference Include="..\Lotus.Blog.Domain\Lotus.Blog.Domain.csproj" />

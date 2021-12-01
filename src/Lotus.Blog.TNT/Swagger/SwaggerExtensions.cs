@@ -45,7 +45,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "博客前台接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = "v1",
+                    Version = Grouping.GroupName_v1,
                     Title = "博客前台接口",
                     Description = ""
                 }
@@ -56,7 +56,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "博客后台接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = "",
+                    Version = Grouping.GroupName_v2,
                     Title = "博客后台接口",
                     Description = ""
                 }
@@ -67,7 +67,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "通用公共接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = "4",
+                    Version = Grouping.GroupName_v3,
                     Title = "通用公共接口",
                     Description = ""
                 }
@@ -78,7 +78,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "JWT授权接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = "4",
+                    Version = Grouping.GroupName_v4,
                     Title = "JWT授权接口",
                     Description = ""
                 }
@@ -86,20 +86,20 @@ namespace Lotus.Blog.TNT.Swagger
         };
 
 
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerUI(this IServiceCollection services)
         {
             return services.AddSwaggerGen(options =>
             {
                 ApiInfos.ForEach(x =>
                 {
                     options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
-              
-
                 });
+
             });
         }
         public static void UseSwaggerUI(this IApplicationBuilder app)
         {
+            app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 // 遍历分组信息，生成Json
@@ -110,12 +110,11 @@ namespace Lotus.Blog.TNT.Swagger
 
                 // 模型的默认扩展深度，设置为 -1 完全隐藏模型
                 options.DefaultModelsExpandDepth(-1);
-                // API文档仅展开标记
+                //// API文档仅展开标记
                 options.DocExpansion(DocExpansion.List);
-                // API前缀设置为空
-                options.RoutePrefix = string.Empty;
-                // API页面Title
+                //// API前缀设置为空
                 options.DocumentTitle = "忘忧小站";
+                options.
             });
         }
     }

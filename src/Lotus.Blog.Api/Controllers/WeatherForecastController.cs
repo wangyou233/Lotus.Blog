@@ -9,6 +9,7 @@ namespace Lotus.Blog.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = Grouping.GroupName_v3)]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

@@ -19,30 +19,21 @@ namespace Lotus.Blog.TNT.Data.Entity
         /// <summary>
         /// 版本号
         /// </summary>
-        [Column("version", Order = 99)]
         public int Version { get; set; }
 
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", ApplyFormatInEditMode = true)]
-        [Column("created", TypeName = "datetime", Order = 100)]
-        [JsonProperty(Order = 100)]
         public DateTime Created { get; set; }
 
         /// <summary>
         /// 修改时间
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", ApplyFormatInEditMode = true)]
-        [Column("modified", TypeName = "datetime", Order = 101)]
-        [JsonProperty(Order = 101)]
         public DateTime Modified { get; set; }
         /// <summary>
         /// 软删除时间
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", ApplyFormatInEditMode = true)]
-        [Column("deleted", TypeName = "datetime", Order = 101)]
         public DateTime? Deleted { get; set; }
     }
 }

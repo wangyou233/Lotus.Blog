@@ -36,10 +36,6 @@ namespace Lotus.Blog.TNT.Data.Context
                         entity.SetTableName(tableName);
                     }
 
-                    if (!Configuration.Schema.IsNullOrEmpty())
-                    {
-                        entity.SetSchema(Configuration.Schema);
-                    }
                 }
             }
         }

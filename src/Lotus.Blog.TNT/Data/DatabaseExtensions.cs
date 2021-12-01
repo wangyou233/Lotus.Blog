@@ -32,7 +32,7 @@ namespace Lotus.Blog.TNT.Data
                     //多个主库的情况下，每个scope请求一个主库上下文实例，在此选择一个数据库源，实现多主数据库
                     //可以根据一定的规则来实现（比如一个会话或客户端访问同一个源），这里是随机取一个
                     var connectionString = dbConfig.Master;
-                    var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+                    var serverVersion = new MySqlServerVersion(new Version(8,0,0));
 
                     options.UseMySql(connectionString, serverVersion, x => x.MigrationsHistoryTable(dbConfig.Prefix + efTableName))
                     .LogTo(Console.WriteLine, LogLevel.Information)
@@ -51,7 +51,7 @@ namespace Lotus.Blog.TNT.Data
                     //多个从库的情况下，每个scope请求一个从库上下文实例，在此选择一个数据库源，实现多从数据库
                     //可以根据一定的规则来实现（比如一个会话或客户端访问同一个源），这里是随机取一个
                     var connectionString = dbConfig.NextSlave();
-                    var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
+                    var serverVersion = new MySqlServerVersion(new Version(8, 0, 0));
 
                     options.UseMySql(connectionString, serverVersion, x => x.MigrationsHistoryTable(dbConfig.Prefix + efTableName))
                      .LogTo(Console.WriteLine, LogLevel.Information)

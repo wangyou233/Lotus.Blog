@@ -94,6 +94,20 @@ namespace Lotus.Blog.TNT.Swagger
                 {
                     options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
                 });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
 
             });
         }

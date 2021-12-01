@@ -14,4 +14,8 @@
     <DocumentationFile>bin\Release\Lotus.Blog.Domain.Shared.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Lotus.Blog.TNT\Lotus.Blog.TNT.csproj" />
+  </ItemGroup>
+
 </Project>

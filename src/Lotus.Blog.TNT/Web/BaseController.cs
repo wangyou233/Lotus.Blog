@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lotus.Blog.TNT.Web
 {
+    [Route("[controller]")]
+    [ApiController]
     public class BaseController : ControllerBase
     {
         

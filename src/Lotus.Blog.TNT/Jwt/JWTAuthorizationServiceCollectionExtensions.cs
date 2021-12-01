@@ -18,27 +18,28 @@ namespace Lotus.Blog.TNT.Jwt
 {
     public static class JWTAuthorizationServiceCollectionExtensions
     {
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, string key, string issuer, string audience)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, JwtConfig jwtConfig)
         {
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options => {
+                options.BackchannelTimeout = new TimeSpan(jwtConfig.ExpiredInHours,0,0);
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = !string.IsNullOrEmpty(issuer),
-                    ValidateAudience = !string.IsNullOrEmpty(audience),
+                    ValidateIssuer = !string.IsNullOrEmpty(jwtConfig.Issuer),
+                    ValidateAudience = !string.IsNullOrEmpty(jwtConfig.Audience),
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-
-                    ValidIssuer = issuer,
-                    ValidAudience = audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                    ValidIssuer = jwtConfig.Issuer,
+                    ValidAudience = jwtConfig.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey))
                 };
             });
 
             return services;
         }
+        
     }
 }

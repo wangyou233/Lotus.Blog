@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lotus.Blog.Domain.Shared\Lotus.Blog.Domain.Shared.csproj" />
+    <ProjectReference Include="..\Lotus.Blog.Domain\Lotus.Blog.Domain.csproj" />
   </ItemGroup>
 
 </Project>

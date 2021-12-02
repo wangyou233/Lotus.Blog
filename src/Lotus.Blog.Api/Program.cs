@@ -1,4 +1,5 @@
 using System.Reflection;
+using Autofac.Extensions.DependencyInjection;
 using Lotus.Blog.Application.Profiles;
 using Lotus.Blog.EntityFrameworkCore;
 using Lotus.Blog.TNT.AgileConfig;
@@ -12,9 +13,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Jwt;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
+using Serilog;
+using Serilog.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -38,10 +43,13 @@ builder.Services.AddControllers().AddNewtonsoftJson(option =>
     option.SerializerSettings.Converters.Add(new StringEnumConverter());
 });
 
+//请求注册
+builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>()
+    .AddTransient<IActionContextAccessor, ActionContextAccessor>().AddSingleton(builder.Configuration);
 //AutoFac 注入
-
 builder.Host.AddService();
 
+//log注册
 //注册一主多从数据库
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
@@ -49,6 +57,7 @@ builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRep
 //注册Jwt鉴权
 JwtConfig jwtConfig = builder.Configuration.GetSection("jwtconfig").Get<JwtConfig>();
 builder.Services.AddJwtAuthentication(jwtConfig);
+
 
 
 var app = builder.Build();
@@ -63,9 +72,10 @@ app.UseHttpsRedirection();
 
 //记录全局请求
 app.UseMiddleware<GlobalMiddleware>();
+AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();

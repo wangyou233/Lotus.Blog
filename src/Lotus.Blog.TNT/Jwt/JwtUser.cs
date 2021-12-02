@@ -22,5 +22,10 @@ namespace Lotus.Blog.TNT.Jwt
         /// 邮箱
         /// </summary>
         public string Email { get; set; }
+        
+        /// <summary>
+        /// 权限
+        /// </summary>
+        public string Auth { get; set; }
     }
 }

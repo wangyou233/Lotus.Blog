@@ -14,10 +14,6 @@ namespace Lotus.Blog.Application.Contracts.Dto.Admin
         /// </summary>
         public string NiceName { get; set; }
 
-        /// <summary>
-        /// 密码
-        /// </summary>
-        public string Password { get; set; }
 
 
         /// <summary>

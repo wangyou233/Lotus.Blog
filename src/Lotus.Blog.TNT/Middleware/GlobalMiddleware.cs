@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,11 +35,11 @@ namespace Lotus.Blog.TNT.Middleware
             }
             else
             {
+               
                 var obj = new
                 {
                     
                     method = context.Request.Method,
-                    // body = context.Request.Body.ToJson(),
                     url = $"{context.Request.Host}{context.Request.Path}"
                 };
                 _logger.LogInformation(obj.ToJson());

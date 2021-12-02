@@ -25,7 +25,7 @@ namespace Lotus.Blog.TNT.Data.Entity
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 修改时间

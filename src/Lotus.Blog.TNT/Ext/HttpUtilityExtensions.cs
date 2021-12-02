@@ -68,6 +68,7 @@ namespace Lotus.Blog.TNT.Ext
             user.Id = claims?.GetClaimValue(ClaimTypes.NameIdentifier).ToInt() ?? 0;
             user.Name = claims.GetClaimValue("name");
             user.Email = claims.GetClaimValue("email");
+            user.Auth = claims.GetClaimValue("auth");
             return user;
         }
 

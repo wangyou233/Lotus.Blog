@@ -86,22 +86,22 @@ namespace Lotus.Blog.TNT.Swagger
         };
 
 
-        public static IServiceCollection AddSwaggerUI(this IServiceCollection services)
+        public static void AddSwaggerUI(this IServiceCollection services)
         {
-            return services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(options =>
             {
                 ApiInfos.ForEach(x =>
                 {
                     options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
                 });
-                // options.DocInclusionPredicate((docName, description) => true);
-                // var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory,"*.XML");
-                //
-                // foreach (var file in xmlFiles)
-                // {
-                //     options.IncludeXmlComments(file);
-                //
-                // }
+                options.DocInclusionPredicate((docName, description) => true);
+                var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory,"*.XML");
+                
+                foreach (var file in xmlFiles)
+                {
+                    options.IncludeXmlComments(file);
+                
+                }
                 options.CustomSchemaIds(i => i.FullName);
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {

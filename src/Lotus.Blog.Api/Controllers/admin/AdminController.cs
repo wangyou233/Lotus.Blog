@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Lotus.Blog.Application.Contracts;
 using Lotus.Blog.Application.Contracts.Dto.Admin;
+using Lotus.Blog.Application.Contracts.Models;
 using Lotus.Blog.TNT.Web;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,5 +31,10 @@ namespace Lotus.Blog.Api.Controllers.admin
             return await _adminService.InsertAsync(input);
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> LoginAsync([FromBody] LoginInput input)
+        {
+            return await _adminService.LoginAsync(input);
+        }
     }
 }

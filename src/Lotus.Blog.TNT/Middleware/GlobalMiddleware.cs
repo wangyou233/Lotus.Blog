@@ -36,8 +36,9 @@ namespace Lotus.Blog.TNT.Middleware
             {
                 var obj = new
                 {
+                    
                     method = context.Request.Method,
-                    body = context.Request.Body.ToJson(),
+                    // body = context.Request.Body.ToJson(),
                     url = $"{context.Request.Host}{context.Request.Path}"
                 };
                 _logger.LogInformation(obj.ToJson());

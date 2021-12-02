@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Jwt;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -30,9 +32,15 @@ builder.WebHost.UseSerilogDefault();
 builder.WebHost.UseDefaultAgileConfig();
 //注入autoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
+builder.Services.AddControllers().AddNewtonsoftJson(option =>
+{
+    option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    option.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
 
-//AutoFac注册服务
-AutofacExtensions.AddService();
+//AutoFac 注入
+
+builder.Host.AddService();
 
 //注册一主多从数据库
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();

@@ -4,6 +4,10 @@ using System.Linq;
 using Autofac;
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Lotus.Blog.TNT.Autofac
 {
@@ -26,29 +30,30 @@ namespace Lotus.Blog.TNT.Autofac
         /// <summary>
         /// Autofac依赖注入
         /// </summary>
-        public static void AddService()
+        public static void AddService(this ConfigureHostBuilder hostBuilder)
         {
-            var baseType = typeof(IDependency);
-            List<string> _fxMobileAssemblies =
-            new List<string> {
-                "Lotus.Blog.Application",
-                "Lotus.Blog.Application.Contracts"
-            };
-            var builder = new ContainerBuilder();
-            var mobileAssemblys = _fxMobileAssemblies.Select(x => Assembly.Load(x)).ToList();
-            List<Type> allMobileTypes = new List<Type>();
-            mobileAssemblys.ForEach(aAssembly =>
+            hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory(builder =>
             {
-                allMobileTypes.AddRange(aAssembly.GetTypes());
-            });
-            var diTypes = allMobileTypes
-               .Where(x => baseType.IsAssignableFrom(x) && x != baseType)
-               .ToArray();
-            builder.RegisterTypes(diTypes)
-                .AsImplementedInterfaces()
-                .PropertiesAutowired()
-                .InstancePerDependency();
-
+                var baseType = typeof(IDependency);
+                List<string> _fxMobileAssemblies =
+                    new List<string> {
+                        "Lotus.Blog.Application",
+                        "Lotus.Blog.Application.Contracts"
+                    };
+                var mobileAssemblys = _fxMobileAssemblies.Select(x => Assembly.Load(x)).ToList();
+                List<Type> allMobileTypes = new List<Type>();
+                mobileAssemblys.ForEach(aAssembly =>
+                {
+                    allMobileTypes.AddRange(aAssembly.GetTypes());
+                });
+                var diTypes = allMobileTypes
+                    .Where(x => baseType.IsAssignableFrom(x) && x != baseType)
+                    .ToArray();
+                builder.RegisterTypes(diTypes)
+                    .AsImplementedInterfaces()
+                    .PropertiesAutowired()
+                    .InstancePerDependency();
+            }));
 
         }
 

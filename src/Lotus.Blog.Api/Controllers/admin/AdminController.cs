@@ -9,6 +9,7 @@ namespace Lotus.Blog.Api.Controllers.admin
     /// <summary>
     /// 管理员
     /// </summary>
+    [ApiController]
     public class AdminController : AdminApiController
     {
         private readonly IAdminService _adminService;
@@ -24,7 +25,7 @@ namespace Lotus.Blog.Api.Controllers.admin
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<AdminDto>> InsertAsync(CreateOrUpdateAdmiDto input)
+        public async Task<ActionResult<AdminDto>> InsertAsync([FromBody]CreateOrUpdateAdmiDto input)
         {
             return await _adminService.InsertAsync(input);
         }

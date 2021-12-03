@@ -78,6 +78,13 @@ namespace Lotus.Blog.TNT.Service
             return SoftDelete(entity);
         }
 
+        public async Task<bool> SoftDeleteAsync(T entity)
+        {
+            entity.IsDeleted = true;
+            entity.Deleted = DateTime.Now;
+            return await UpdateAsync(entity);
+        }
+
         public bool SoftDelete(T entity)
         {
             if (entity == null)

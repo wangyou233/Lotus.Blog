@@ -1,4 +1,5 @@
 ﻿using Lotus.Blog.TNT.Attribute;
+using Lotus.Blog.TNT.Attributes;
 using Lotus.Blog.TNT.Ext;
 using Lotus.Blog.TNT.Jwt;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Lotus.Blog.TNT.Web
     [Route("[controller]")]
     [ApiController]
     [ApiLog]
+    [FormatResponse]
     public class BaseController : ControllerBase
     {
         

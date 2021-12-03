@@ -2,10 +2,9 @@
 using Lotus.Blog.TNT.Ext;
 using Lotus.Blog.TNT.Web;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Lotus.Blog.TNT.Attribute
+namespace Lotus.Blog.TNT.Attributes
 {
-    public abstract class BaseActionFilter
+    public abstract class BaseActionFilter:System.Attribute
     {
         
         /// <summary>

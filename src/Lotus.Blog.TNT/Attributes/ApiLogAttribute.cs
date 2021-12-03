@@ -46,6 +46,7 @@ namespace Lotus.Blog.TNT.Attribute
             }
             string log =
                 $@"方向:请求本系统
+                ip:{context.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString() ?? ""}
                 url:{request.GetDisplayUrl()}
                 method:{request.Method}
                 contentType:{request.ContentType}

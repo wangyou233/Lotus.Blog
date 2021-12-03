@@ -66,6 +66,13 @@ namespace Lotus.Blog.TNT.Service
         Task<bool> DeleteAsync(int id, bool save = true);
 
         /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<bool> SoftDeleteAsync(T entity);
+
+        /// <summary>
         /// 删除实体
         /// </summary>
         /// <param name="where"></param>

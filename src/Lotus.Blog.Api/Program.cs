@@ -4,6 +4,7 @@ using Lotus.Blog.Application.Profiles;
 using Lotus.Blog.EntityFrameworkCore;
 using Lotus.Blog.TNT.AgileConfig;
 using Lotus.Blog.TNT.Attribute;
+using Lotus.Blog.TNT.Attributes;
 using Lotus.Blog.TNT.Data;
 using Lotus.Blog.TNT.Data.Context;
 using Lotus.Blog.TNT.Logger;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Jwt;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -48,6 +50,11 @@ builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>()
     .AddTransient<IActionContextAccessor, ActionContextAccessor>().AddSingleton(builder.Configuration);
 //AutoFac 注入
 builder.Host.AddService();
+//Ip注入
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
 
 //log注册
 //注册一主多从数据库

@@ -67,5 +67,11 @@ namespace Lotus.Blog.Application
             return token;
 
         }
+
+        public Task<AdminDto> GetAsync(int id)
+        {
+            
+            throw new System.NotImplementedException();
+        }
     }
 }

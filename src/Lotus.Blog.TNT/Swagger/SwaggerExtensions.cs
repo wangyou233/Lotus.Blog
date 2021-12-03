@@ -90,19 +90,33 @@ namespace Lotus.Blog.TNT.Swagger
         {
             services.AddSwaggerGen(options =>
             {
-                ApiInfos.ForEach(x =>
-                {
-                    options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
-                });
                 options.DocInclusionPredicate((docName, description) => true);
-                var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory,"*.XML");
-                
+                var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory, "*.XML");
+
                 foreach (var file in xmlFiles)
                 {
                     options.IncludeXmlComments(file);
-                
+
                 }
                 options.CustomSchemaIds(i => i.FullName);
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1.0.0",
+                    Title = "Api"
+                });
+                //ApiInfos.ForEach(x =>
+                //{
+                //    options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
+                //});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT token Bearer"
+                });
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -126,10 +140,10 @@ namespace Lotus.Blog.TNT.Swagger
             app.UseSwaggerUI(options =>
             {
                 // 遍历分组信息，生成Json
-                ApiInfos.ForEach(x =>
-                {
-                    options.SwaggerEndpoint($"/swagger/{x.UrlPrefix}/swagger.json", x.Name);
-                });
+                //ApiInfos.ForEach(x =>
+                //{
+                //    options.SwaggerEndpoint($"/swagger/{x.UrlPrefix}/swagger.json", x.Name);
+                //});
 
                 // 模型的默认扩展深度，设置为 -1 完全隐藏模型
                 options.DefaultModelsExpandDepth(-1);

@@ -1,8 +1,13 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Lotus.Blog.Application.Contracts;
 using Lotus.Blog.Application.Contracts.Dto.Admin;
 using Lotus.Blog.Application.Contracts.Models;
+using Lotus.Blog.Domain.Entities;
+using Lotus.Blog.TNT.Service;
+using Lotus.Blog.TNT.Swagger;
 using Lotus.Blog.TNT.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lotus.Blog.Api.Controllers.admin
@@ -10,12 +15,18 @@ namespace Lotus.Blog.Api.Controllers.admin
     /// <summary>
     /// 管理员
     /// </summary>
-    [ApiController]
-    public class AdminController : AdminApiController
+    [Authorize]
+    public class AdminController : EntityController<Admin,AdminDto,CreateOrUpdateAdmiDto>
     {
         private readonly IAdminService _adminService;
 
-        public AdminController(IAdminService adminService)
+
+        /// <summary>
+        /// 管理员管理
+        /// </summary>
+        /// <param name="mapper"></param>
+        /// <param name="adminService"></param>
+        public AdminController( IMapper mapper, IAdminService adminService) : base(adminService, mapper)
         {
             _adminService = adminService;
         }
@@ -26,15 +37,24 @@ namespace Lotus.Blog.Api.Controllers.admin
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<AdminDto>> InsertAsync([FromBody]CreateOrUpdateAdmiDto input)
+        public override async Task<AdminDto> InsertAsync([FromBody]CreateOrUpdateAdmiDto input)
         {
             return await _adminService.InsertAsync(input);
         }
-
+        
+        /// <summary>
+        /// 管理端登录 无需授权
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost("login")]
-        public async Task<ActionResult<string>> LoginAsync([FromBody] LoginInput input)
+        [AllowAnonymous]
+        public async Task<string> LoginAsync([FromBody] LoginInput input)
         {
             return await _adminService.LoginAsync(input);
         }
+
+      
+
     }
 }

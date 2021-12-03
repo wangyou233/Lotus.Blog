@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Lotus.Blog.TNT.Attribute
+namespace Lotus.Blog.TNT.Attributes
 {
     public static class GlobalExceptionExtensions
     {

@@ -1,11 +1,8 @@
-﻿using Lotus.Blog.TNT.Autofac;
-using Lotus.Blog.TNT.Ext;
-using Lotus.Blog.TNT.Logger;
+﻿using Lotus.Blog.TNT.Attribute;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Lotus.Blog.TNT.Attribute
+namespace Lotus.Blog.TNT.Attributes
 {
     public class GlobalExceptionFilter: BaseActionFilter, IExceptionFilter
     {

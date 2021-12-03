@@ -84,7 +84,7 @@ app.UseHttpsRedirection();
 
 //记录全局请求
 app.UseMiddleware<GlobalMiddleware>();
-//AutoFac
+//AutoFac全局
 AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
 app.UseAuthentication();
 app.UseAuthorization();

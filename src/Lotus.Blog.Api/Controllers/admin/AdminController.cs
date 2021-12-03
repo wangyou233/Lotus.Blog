@@ -15,8 +15,7 @@ namespace Lotus.Blog.Api.Controllers.admin
     /// <summary>
     /// 管理员
     /// </summary>
-    [Authorize]
-    public class AdminController : EntityController<Admin,AdminDto,CreateOrUpdateAdmiDto>
+    public class AdminController : BackGroupEntityController<Admin,AdminDto,CreateOrUpdateAdminDto>
     {
         private readonly IAdminService _adminService;
 
@@ -37,7 +36,7 @@ namespace Lotus.Blog.Api.Controllers.admin
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<AdminDto> InsertAsync([FromBody]CreateOrUpdateAdmiDto input)
+        public override async Task<AdminDto> InsertAsync([FromBody]CreateOrUpdateAdminDto input)
         {
             return await _adminService.InsertAsync(input);
         }

@@ -31,7 +31,7 @@ namespace Lotus.Blog.Application
         }
 
 
-        public async Task<AdminDto> InsertAsync(CreateOrUpdateAdmiDto input)
+        public async Task<AdminDto> InsertAsync(CreateOrUpdateAdminDto input)
         {
             var entity = _mapper.Map<Admin>(input);
 

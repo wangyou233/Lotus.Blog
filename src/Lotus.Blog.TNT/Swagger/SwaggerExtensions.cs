@@ -99,16 +99,12 @@ namespace Lotus.Blog.TNT.Swagger
 
                 }
                 options.CustomSchemaIds(i => i.FullName);
-                options.SwaggerDoc("v1", new OpenApiInfo
+
+                ApiInfos.ForEach(x =>
                 {
-                    Version = "v1.0.0",
-                    Title = "Api"
+                    options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
                 });
-                //ApiInfos.ForEach(x =>
-                //{
-                //    options.SwaggerDoc(x.UrlPrefix, x.OpenApiInfo);
-                //});
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
@@ -139,11 +135,10 @@ namespace Lotus.Blog.TNT.Swagger
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                // 遍历分组信息，生成Json
-                //ApiInfos.ForEach(x =>
-                //{
-                //    options.SwaggerEndpoint($"/swagger/{x.UrlPrefix}/swagger.json", x.Name);
-                //});
+                ApiInfos.ForEach(x =>
+                {
+                    options.SwaggerEndpoint($"/swagger/{x.UrlPrefix}/swagger.json", x.Name);
+                });
 
                 // 模型的默认扩展深度，设置为 -1 完全隐藏模型
                 options.DefaultModelsExpandDepth(-1);

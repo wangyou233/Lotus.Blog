@@ -17,7 +17,7 @@ namespace Lotus.Blog.Application.Contracts
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<AdminDto> InsertAsync(CreateOrUpdateAdmiDto input);
+        Task<AdminDto> InsertAsync(CreateOrUpdateAdminDto input);
 
         Task<string> LoginAsync(LoginInput input);
 

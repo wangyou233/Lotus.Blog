@@ -9,7 +9,7 @@ namespace Lotus.Blog.Application.Profiles
         public AdminProfile()
         {
             CreateMap<Admin, AdminDto>();
-            CreateMap<CreateOrUpdateAdmiDto, Admin>();
+            CreateMap<CreateOrUpdateAdminDto, Admin>();
         }
     }
 }

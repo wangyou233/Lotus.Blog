@@ -22,6 +22,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
 using Serilog;
 using Serilog.Core;
+using Lotus.Blog.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -75,12 +76,16 @@ var app = builder.Build();
 
 //使用Swagger
 app.UseSwaggerUI();
+//自动迁移数据库
+app.Services.MigrateMarketingDatabase();
+
+
 app.UseHttpsRedirection();
 
 //记录全局请求
 app.UseMiddleware<GlobalMiddleware>();
+//AutoFac
 AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

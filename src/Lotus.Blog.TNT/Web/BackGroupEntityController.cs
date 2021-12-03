@@ -9,6 +9,7 @@ using Lotus.Blog.TNT.Data.Dto;
 using Lotus.Blog.TNT.Data.Entity;
 using Lotus.Blog.TNT.Ext;
 using Lotus.Blog.TNT.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,14 +18,16 @@ namespace Lotus.Blog.TNT.Web
     /// <summary>
     /// CURD基础
     /// </summary>
-    public class EntityController<TEntity, TDto, TCreateOrUpdateDto> : BaseController
+    [Route("backgroup/api/[controller]")]
+    [Authorize]
+    public class BackGroupEntityController<TEntity, TDto, TCreateOrUpdateDto> : BaseController
         where TEntity : BaseEntity
         where TDto : BaseEntityDto
     {
         private readonly IService<TEntity> _entityService;
         private readonly IMapper _mapper;
 
-        protected EntityController(IService<TEntity> entityService,IMapper mapper)
+        protected BackGroupEntityController(IService<TEntity> entityService,IMapper mapper)
         {
             _entityService = entityService;
             _mapper = mapper;

@@ -3,7 +3,7 @@ using Lotus.Blog.TNT.Data.Dto;
 
 namespace Lotus.Blog.Application.Contracts.Dto.Admin
 {
-    public class CreateOrUpdateAdmiDto 
+    public class CreateOrUpdateAdminDto 
     {
         
         public int? Id { get; set; }

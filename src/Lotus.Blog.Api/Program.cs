@@ -57,7 +57,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
-//log注册
 //注册一主多从数据库
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
@@ -73,10 +72,11 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-
+Console.WriteLine(app.Environment.EnvironmentName);
 //使用Swagger
 app.UseSwaggerUI();
 //自动迁移数据库
+
 app.Services.MigrateMarketingDatabase();
 
 

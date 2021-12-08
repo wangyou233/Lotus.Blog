@@ -23,6 +23,7 @@ namespace Lotus.Blog.TNT.AgileConfig
         }
         public static IWebHostBuilder UseDefaultAgileConfig(this IWebHostBuilder hostBuilder)
         {
+            AddDefaultConfiguration();
             hostBuilder.ConfigureAppConfiguration((context, config) =>
              {
                  config.AddAgileConfig((arg) =>

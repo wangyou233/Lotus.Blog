@@ -23,10 +23,9 @@ using Newtonsoft.Json.Converters;
 using Serilog;
 using Serilog.Core;
 using Lotus.Blog.Api;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -40,11 +39,7 @@ builder.WebHost.UseSerilogDefault();
 builder.WebHost.UseDefaultAgileConfig();
 //注入autoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
-builder.Services.AddControllers().AddNewtonsoftJson(option =>
-{
-    option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-    option.SerializerSettings.Converters.Add(new StringEnumConverter());
-});
+
 
 //请求注册
 builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>()
@@ -65,7 +60,13 @@ builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRep
 JwtConfig jwtConfig = builder.Configuration.GetSection("jwtconfig").Get<JwtConfig>();
 builder.Services.AddJwtAuthentication(jwtConfig);
 
-
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.DateFormatString = "yyyy-MM-dd hh-mm-ss";
+    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
 
 var app = builder.Build();
 
@@ -81,7 +82,12 @@ app.Services.MigrateMarketingDatabase();
 
 
 app.UseHttpsRedirection();
-
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowAnyOrigin();
+});
 //记录全局请求
 app.UseMiddleware<GlobalMiddleware>();
 //AutoFac全局

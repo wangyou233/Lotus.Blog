@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Text;
 using Autofac;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Data.Ext;
@@ -19,11 +20,23 @@ namespace Lotus.Blog.TNT.Attribute
     {
         static ConcurrentDictionary<HttpContext, DateTime> _requesTime { get; }
             = new ConcurrentDictionary<HttpContext, DateTime>();
+
+        protected static string requestBody { get; set; }
         public void OnActionExecuting(ActionExecutingContext context)
         {
+            
+            var request = context.HttpContext.Request;
+            if (request.Method == "POST" || request.Method == "PUT" || request.Method == "DELETE")
+            {
+                if(context.ActionArguments != null && context.ActionArguments.Count > 0)
+                {
+                    var s = context.ActionArguments.FirstOrDefault().Value;
+                    requestBody = s.ToJson();
+                }
+            }
             _requesTime[HttpContextCore.Current] = DateTime.Now;
         }
-
+  
         public void OnActionExecuted(ActionExecutedContext context)
         {
             var time = DateTime.Now - _requesTime[HttpContextCore.Current];
@@ -38,12 +51,9 @@ namespace Lotus.Blog.TNT.Attribute
                 resContent = new string(resContent.Copy(0, 200).ToArray());
                 resContent += "......";
             }
-            var Body = HttpContextCore.Current.Request.Body.ReadToString();
-            if (Body.Length > 500)
-            {
-                Body = new string(Body.Copy(0, 500).ToArray());
-                Body += "......";
-            }
+            request.EnableBuffering();
+            var Body = requestBody;
+      
             string log =
                 $@"方向:请求本系统
                 ip:{context.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString() ?? ""}

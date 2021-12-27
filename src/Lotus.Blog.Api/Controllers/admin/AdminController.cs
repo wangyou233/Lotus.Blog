@@ -4,6 +4,7 @@ using Lotus.Blog.Application.Contracts;
 using Lotus.Blog.Application.Contracts.Dto.Admin;
 using Lotus.Blog.Application.Contracts.Models;
 using Lotus.Blog.Domain.Entities;
+using Lotus.Blog.TNT.Attribute;
 using Lotus.Blog.TNT.Service;
 using Lotus.Blog.TNT.Swagger;
 using Lotus.Blog.TNT.Web;

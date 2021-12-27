@@ -18,10 +18,13 @@ namespace Lotus.Blog.TNT.Attributes
             if (ex is EventException busEx)
             {
                 _logger.LogError($"{busEx.ErrorCode}_{busEx.Message}");
+                context.Result = Error(busEx.Message, busEx.ErrorCode.ToString());
+
             }
             else
             {
                 _logger.LogError($"{ex.Message}");
+                context.Result = Error(ex.Message);
             }
         }
     }

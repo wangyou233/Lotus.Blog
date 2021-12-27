@@ -61,7 +61,6 @@ namespace Lotus.Blog.Application
             claims.Add(new Claim(ClaimTypes.NameIdentifier,entity.Id.ToString()));
             claims.Add(new Claim("auth","admin"));
             claims.Add(new Claim("name",entity.UserName));
-            claims.Add(new Claim("email",entity.Password));
 
             var token = JwtUtils.GenerateToken(jwtConfig, claims);
             return token;

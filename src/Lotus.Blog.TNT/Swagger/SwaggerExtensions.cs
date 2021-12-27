@@ -12,6 +12,11 @@ namespace Lotus.Blog.TNT.Swagger
 {
     public static class SwaggerExtensions
     {
+
+        /// <summary>
+        /// Api版本号
+        /// </summary>
+        public static string version = "1.0.0";
         /// <summary>
         /// 分组
         /// </summary>
@@ -45,7 +50,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "博客前台接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = Grouping.GroupName_v1,
+                    Version = version,
                     Title = "博客前台接口",
                     Description = ""
                 }
@@ -56,7 +61,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "博客后台接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = Grouping.GroupName_v2,
+                    Version = version,
                     Title = "博客后台接口",
                     Description = ""
                 }
@@ -67,7 +72,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "通用公共接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = Grouping.GroupName_v3,
+                    Version = version,
                     Title = "通用公共接口",
                     Description = ""
                 }
@@ -78,7 +83,7 @@ namespace Lotus.Blog.TNT.Swagger
                 Name = "JWT授权接口",
                 OpenApiInfo = new OpenApiInfo
                 {
-                    Version = Grouping.GroupName_v4,
+                    Version = version,
                     Title = "JWT授权接口",
                     Description = ""
                 }
@@ -90,14 +95,13 @@ namespace Lotus.Blog.TNT.Swagger
         {
             services.AddSwaggerGen(options =>
             {
-                options.DocInclusionPredicate((docName, description) => true);
                 var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory, "*.XML");
-
                 foreach (var file in xmlFiles)
                 {
                     options.IncludeXmlComments(file);
 
                 }
+               
                 options.CustomSchemaIds(i => i.FullName);
 
                 ApiInfos.ForEach(x =>
@@ -132,7 +136,6 @@ namespace Lotus.Blog.TNT.Swagger
         }
         public static void UseSwaggerUI(this IApplicationBuilder app)
         {
-            app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 ApiInfos.ForEach(x =>

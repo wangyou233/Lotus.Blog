@@ -70,8 +70,13 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 var app = builder.Build();
 
+IApplicationBuilder applicationBuilder = app;
+applicationBuilder.Use(next => context =>
+{
+    context.Request.EnableBuffering();
 
-
+    return next(context);
+});
 // Configure the HTTP request pipeline.
 Console.WriteLine(app.Environment.EnvironmentName);
 //Ê¹ÓÃSwagger
@@ -84,6 +89,7 @@ app.Services.MigrateMarketingDatabase();
 app.UseHttpsRedirection();
 app.UseCors(options =>
 {
+
     options.AllowAnyHeader();
     options.AllowAnyMethod();
     options.AllowAnyOrigin();

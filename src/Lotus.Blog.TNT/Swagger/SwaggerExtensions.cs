@@ -102,7 +102,6 @@ namespace Lotus.Blog.TNT.Swagger
 
                 }
                
-                options.CustomSchemaIds(i => i.FullName);
 
                 ApiInfos.ForEach(x =>
                 {
@@ -136,6 +135,7 @@ namespace Lotus.Blog.TNT.Swagger
         }
         public static void UseSwaggerUI(this IApplicationBuilder app)
         {
+            app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 ApiInfos.ForEach(x =>

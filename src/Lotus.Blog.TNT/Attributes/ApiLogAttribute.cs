@@ -21,27 +21,34 @@ namespace Lotus.Blog.TNT.Attribute
         static ConcurrentDictionary<HttpContext, DateTime> _requesTime { get; }
             = new ConcurrentDictionary<HttpContext, DateTime>();
 
-        protected static string requestBody { get; set; }
+        /// <summary>
+        /// Action之前
+        /// </summary>
+        /// <param name="context"></param>
         public void OnActionExecuting(ActionExecutingContext context)
         {
             
-            var request = context.HttpContext.Request;
-            if (request.Method == "POST" || request.Method == "PUT" || request.Method == "DELETE")
-            {
-                if(context.ActionArguments != null && context.ActionArguments.Count > 0)
-                {
-                    var s = context.ActionArguments.FirstOrDefault().Value;
-                    requestBody = s.ToJson();
-                }
-            }
+            //var request = context.HttpContext.Request;
+            //if (request.Method == "POST" || request.Method == "PUT" || request.Method == "DELETE")
+            //{
+            //    if(context.ActionArguments != null && context.ActionArguments.Count > 0)
+            //    {
+            //        var s = context.ActionArguments.FirstOrDefault().Value;
+            //        requestBody = s.ToJson();
+            //    }
+            //}
             _requesTime[HttpContextCore.Current] = DateTime.Now;
         }
   
+        /// <summary>
+        /// Action之后
+        /// </summary>
+        /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
             var time = DateTime.Now - _requesTime[HttpContextCore.Current];
             _requesTime.TryRemove(HttpContextCore.Current, out _);
-            var request = context.HttpContext.Request;
+            var request = HttpContextCore.Current.Request;
             string resContent = string.Empty;
             if (context.Result is ContentResult result)
                 resContent = result.Content;
@@ -52,8 +59,18 @@ namespace Lotus.Blog.TNT.Attribute
                 resContent += "......";
             }
             request.EnableBuffering();
-            var Body = requestBody;
       
+            //var Body = requestBody;
+            //if (request.Method == "POST" || request.Method == "PUT" || request.Method == "DELETE")
+            //{
+            //    Body = request.Body.Read();
+            //}
+            var Body = HttpContextCore.Current.Request.Body.ReadToString();
+            if (Body.Length > 500)
+            {
+                Body = new string(Body.Copy(0, 500).ToArray());
+                Body += "......";
+            }
             string log =
                 $@"方向:请求本系统
                 ip:{context.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString() ?? ""}

@@ -16,6 +16,7 @@ namespace Lotus.Blog.Api.Controllers.admin
     /// <summary>
     /// 管理员
     /// </summary>
+    [ApiExplorerSettings(GroupName = SwaggerExtensions.Grouping.GroupName_v2)]
     public class AdminController : BackGroupEntityController<Admin,AdminDto,CreateOrUpdateAdminDto>
     {
         private readonly IAdminService _adminService;

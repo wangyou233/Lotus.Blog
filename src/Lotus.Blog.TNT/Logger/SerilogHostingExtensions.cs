@@ -25,6 +25,7 @@ namespace Lotus.Blog.TNT.Logger
         }
         public static IWebHostBuilder UseSerilogDefault(this IWebHostBuilder hostBuilder)
         {
+            
             var config = AddDefaultConfiguration();
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)

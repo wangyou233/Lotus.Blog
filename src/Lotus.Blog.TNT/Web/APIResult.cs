@@ -57,4 +57,5 @@ namespace Lotus.Blog.TNT.Web
             return new ApiResult<T>() { Success = false, Code = "not-exist", Message = "数据不存在", Data = default(T) };
         }
     }
+
 }

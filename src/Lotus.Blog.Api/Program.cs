@@ -78,12 +78,11 @@ applicationBuilder.Use(next => context =>
     return next(context);
 });
 // Configure the HTTP request pipeline.
-Console.WriteLine(app.Environment.EnvironmentName);
 //使用Swagger
 app.UseSwaggerUI();
 //自动迁移数据库
 
-app.Services.MigrateMarketingDatabase();
+//app.Services.MigrateMarketingDatabase();
 
 
 app.UseHttpsRedirection();

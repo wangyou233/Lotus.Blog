@@ -98,7 +98,14 @@ namespace Lotus.Blog.TNT.Swagger
                 var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory, "*.XML");
                 foreach (var file in xmlFiles)
                 {
-                    options.IncludeXmlComments(file);
+                    if (file.Contains("Lotus.Blog.Api.xml"))
+                    {
+                        options.IncludeXmlComments(file,true);
+                    }
+                    else
+                    {
+                        options.IncludeXmlComments(file, true);
+                    }
 
                 }
                

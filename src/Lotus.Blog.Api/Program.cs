@@ -29,34 +29,34 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//×¢ÈëSwagger
+//×¢ï¿½ï¿½Swagger
 builder.Services.AddSwaggerUI();
-//Ìí¼ÓÈ«¾Ö´íÎó
+//ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö´ï¿½ï¿½ï¿½
 builder.Services.AddGlobalException();
-//×¢ÈëÈÕÖ¾
+//×¢ï¿½ï¿½ï¿½ï¿½Ö¾
 builder.WebHost.UseSerilogDefault();
-//ÅäÖÃÖÐÐÄ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 builder.WebHost.UseDefaultAgileConfig();
-//×¢ÈëautoMapper
+//×¢ï¿½ï¿½autoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
 
 
-//ÇëÇó×¢²á
+//ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>()
     .AddTransient<IActionContextAccessor, ActionContextAccessor>().AddSingleton(builder.Configuration);
-//AutoFac ×¢Èë
+//AutoFac ×¢ï¿½ï¿½
 builder.Host.AddService();
-//Ip×¢Èë
+//Ip×¢ï¿½ï¿½
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
-//×¢²áÒ»Ö÷¶à´ÓÊý¾Ý¿â
+//×¢ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
 
-//×¢²áJwt¼øÈ¨
+//×¢ï¿½ï¿½Jwtï¿½ï¿½È¨
 JwtConfig jwtConfig = builder.Configuration.GetSection("jwtconfig").Get<JwtConfig>();
 builder.Services.AddJwtAuthentication(jwtConfig);
 
@@ -78,14 +78,15 @@ applicationBuilder.Use(next => context =>
     return next(context);
 });
 // Configure the HTTP request pipeline.
-//Ê¹ÓÃSwagger
+//Ê¹ï¿½ï¿½Swagger
 app.UseSwaggerUI();
-//×Ô¶¯Ç¨ÒÆÊý¾Ý¿â
+//ï¿½Ô¶ï¿½Ç¨ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 
 //app.Services.MigrateMarketingDatabase();
 
 
 app.UseHttpsRedirection();
+// è·¨åŸŸå¤„ç†
 app.UseCors(options =>
 {
 
@@ -93,9 +94,9 @@ app.UseCors(options =>
     options.AllowAnyMethod();
     options.AllowAnyOrigin();
 });
-//¼ÇÂ¼È«¾ÖÇëÇó
+//ï¿½ï¿½Â¼È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.UseMiddleware<GlobalMiddleware>();
-//AutoFacÈ«¾Ö
+//AutoFacÈ«ï¿½ï¿½
 AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
 app.UseAuthentication();
 app.UseAuthorization();

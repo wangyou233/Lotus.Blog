@@ -45,7 +45,6 @@ namespace Lotus.Blog.TNT.Logger
             return hostBuilder;
 
         }
-
         public static string GetLogFile(this IConfiguration config, string defaultValue)
         {
             return config.GetValue<string>("LogFile", defaultValue);

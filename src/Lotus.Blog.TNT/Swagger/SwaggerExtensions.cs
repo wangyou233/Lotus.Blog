@@ -98,7 +98,7 @@ namespace Lotus.Blog.TNT.Swagger
                 var xmlFiles = System.IO.Directory.GetFiles(AppContext.BaseDirectory, "*.XML");
                 foreach (var file in xmlFiles)
                 {
-                    if (file.Contains("Lotus.Blog.Api.xml"))
+                    if (file.Contains("Api.xml"))
                     {
                         options.IncludeXmlComments(file,true);
                     }
@@ -154,7 +154,6 @@ namespace Lotus.Blog.TNT.Swagger
                 options.DefaultModelsExpandDepth(-1);
                 //// API文档仅展开标记
                 options.DocExpansion(DocExpansion.List);
-                options.RoutePrefix = string.Empty;
                 //// API前缀设置为空
                 options.DocumentTitle = "忘忧小站";
             });

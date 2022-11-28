@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lotus.Blog.TNT.Web
 {
-    [Route("[controller]")]
     [ApiController]
     [ApiLog]
     [FormatResponse]

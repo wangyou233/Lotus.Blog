@@ -1,29 +1,24 @@
 using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
+using Lotus.Blog.Api;
 using Lotus.Blog.Application.Profiles;
 using Lotus.Blog.EntityFrameworkCore;
 using Lotus.Blog.TNT.AgileConfig;
-using Lotus.Blog.TNT.Attribute;
 using Lotus.Blog.TNT.Attributes;
 using Lotus.Blog.TNT.Data;
 using Lotus.Blog.TNT.Data.Context;
 using Lotus.Blog.TNT.Logger;
 using Lotus.Blog.TNT.Swagger;
 using Lotus.Blog.TNT.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Jwt;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
-using Serilog;
-using Serilog.Core;
-using Lotus.Blog.Api;
 using Newtonsoft.Json.Serialization;
+using SkyApm.Utilities.Configuration;
+using SkyApm.Utilities.DependencyInjection;
+using SkyApm.Utilities.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,8 +30,8 @@ builder.Services.AddSwaggerUI();
 builder.Services.AddGlobalException();
 //注入日志
 builder.WebHost.UseSerilogDefault();
-//配置中心
-builder.WebHost.UseDefaultAgileConfig();
+//配置中心  注释
+// builder.WebHost.UseDefaultAgileConfig();
 //注入autoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
 
@@ -51,13 +46,15 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
+// builder.Services.AddSkyApmExtensions();
+// builder.Services.AddSkyAPM();
 
-//注册一主多从数据库
+//注册一主一从数据库
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
 
 //注册Jwt鉴权
-JwtConfig jwtConfig = builder.Configuration.GetSection("jwtconfig").Get<JwtConfig>();
+JwtConfig jwtConfig = builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>();
 builder.Services.AddJwtAuthentication(jwtConfig);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -77,12 +74,10 @@ applicationBuilder.Use(next => context =>
 
     return next(context);
 });
-// Configure the HTTP request pipeline.
 //使用Swagger
 app.UseSwaggerUI();
 //自动迁移数据库
-
-//app.Services.MigrateMarketingDatabase();
+app.Services.MigrateMarketingDatabase();
 
 
 app.UseHttpsRedirection();

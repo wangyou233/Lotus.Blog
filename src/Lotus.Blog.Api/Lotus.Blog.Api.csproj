@@ -27,16 +27,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="SkyAPM.Agent.AspNetCore" Version="1.3.0" />
+    <PackageReference Include="SkyAPM.Transport.Grpc" Version="1.3.0" />
+    <PackageReference Include="SkyAPM.Transport.Grpc.Protocol" Version="1.3.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Lotus.Blog.Application\Lotus.Blog.Application.csproj" />
     <ProjectReference Include="..\Lotus.Blog.EntityFrameworkCore\Lotus.Blog.EntityFrameworkCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\api\" />
   </ItemGroup>
 
 </Project>

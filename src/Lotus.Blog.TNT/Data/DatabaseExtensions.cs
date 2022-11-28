@@ -38,6 +38,7 @@ namespace Lotus.Blog.TNT.Data
                     .LogTo(Console.WriteLine, LogLevel.Information)
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors()
+                    
 
                     ;
                 });

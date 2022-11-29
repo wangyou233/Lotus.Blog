@@ -14,7 +14,11 @@ namespace Lotus.Blog.TNT.Data.Entity
         /// <summary>
         /// 标识
         /// </summary>
-        public int Id { get; set; }
+        [ScaffoldColumn(false)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; } 
+        
+        
 
     }
 }

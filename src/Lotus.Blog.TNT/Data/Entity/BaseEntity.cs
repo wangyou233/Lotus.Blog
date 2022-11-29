@@ -30,7 +30,7 @@ namespace Lotus.Blog.TNT.Data.Entity
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime Modified { get; set; }
+        public DateTime? Modified { get; set; }
         /// <summary>
         /// 软删除时间
         /// </summary>

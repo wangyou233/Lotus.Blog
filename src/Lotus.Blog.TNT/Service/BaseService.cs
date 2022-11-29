@@ -179,6 +179,7 @@ namespace Lotus.Blog.TNT.Service
             return await FindPageAsync(pageObject, where, sort, "");
         }
 
+        
         public virtual async Task<PageList<T>> FindPageAsync<TKey>(PageObjectModel pageObject,
             Expression<Func<T, bool>> where,
             Expression<Func<T, TKey>> sort,
@@ -342,6 +343,21 @@ namespace Lotus.Blog.TNT.Service
 
         }
 
+        public IQueryable<T> Query()
+        {
+            return SlaveDb.Set<T>().AsQueryable();
+        }
+        public void DeleteWhere(Expression<Func<T, bool>> predicate = null) 
+        {
+            var dbSet = MasterDb.Set<T>();
+            if (predicate != null)
+                dbSet.RemoveRange(dbSet.Where(predicate));
+            else
+                dbSet.RemoveRange(dbSet);
+
+            MasterDb.SaveChanges();
+        } 
+        
         public async Task<bool> BatchUpdateAsync(IEnumerable<T> entityList)
         {
             foreach (var entity in entityList)

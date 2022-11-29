@@ -184,6 +184,10 @@ namespace Lotus.Blog.TNT.Service
         /// <param name="entityList"></param>
         /// <returns></returns>
         Task<bool> BatchInsertAsync(IEnumerable<T> entityList);
+
+        IQueryable<T> Query();
+
+        void DeleteWhere(Expression<Func<T, bool>> predicate = null);
         /// <summary>
         /// 批量更新
         /// </summary>

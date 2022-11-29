@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Lotus.Blog.Domain.Entities;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Lotus.Blog.EntityFrameworkCore
 {
@@ -19,7 +21,6 @@ namespace Lotus.Blog.EntityFrameworkCore
 
         public DbSet<Domain.Entities.File> Files { get; set; }
         
-        public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 
@@ -29,7 +30,6 @@ namespace Lotus.Blog.EntityFrameworkCore
 
         public DbSet<Link> Links { get; set; }
 
-        public DbSet<ChatHistory> ChatHistories { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
         
@@ -37,6 +37,8 @@ namespace Lotus.Blog.EntityFrameworkCore
         {
             
         }
+
+    
     }
     
     

@@ -2,7 +2,7 @@
 
 namespace Lotus.Blog.Domain.Entities
 {
-    public class PostTag : Entity
+    public class PostTag : BaseEntity
     {
         /// <summary>
         /// 文章Id

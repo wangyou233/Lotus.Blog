@@ -82,6 +82,7 @@ namespace Lotus.Blog.TNT.Service
         {
             entity.IsDeleted = true;
             entity.Deleted = DateTime.Now;
+            entity.Version++;
             return await UpdateAsync(entity);
         }
 
@@ -93,7 +94,7 @@ namespace Lotus.Blog.TNT.Service
             }
             entity.IsDeleted = true;
             entity.Deleted = DateTime.Now;
-
+            entity.Version++;
             return Update(entity);
         }
 
@@ -253,7 +254,7 @@ namespace Lotus.Blog.TNT.Service
             return InsertAsync(entity, save).Result;
         }
 
-        public async Task<T> InsertAsync(T entity, bool save = true)
+        public async Task<T> InsertAsync(T? entity, bool save = true)
         {
             if (entity == null)
             {
@@ -268,6 +269,8 @@ namespace Lotus.Blog.TNT.Service
             {
                 entity.Modified = entity.Created;
             }
+
+            entity.Version = 1;
 
             MasterDb.Add(entity);
 
@@ -294,7 +297,7 @@ namespace Lotus.Blog.TNT.Service
             return UpdateAsync(entity, save).Result;
         }
 
-        public async Task<bool> UpdateAsync(T entity, bool save = true)
+        public async Task<bool> UpdateAsync(T? entity, bool save = true)
         {
             if (entity == null)
             {

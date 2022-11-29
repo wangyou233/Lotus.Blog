@@ -1,23 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using AutoMapper;
 using Lotus.Blog.Application.Contracts;
 using Lotus.Blog.Application.Contracts.Dto.Admin;
 using Lotus.Blog.Application.Contracts.Models;
+using Lotus.Blog.Application.Contracts.Services;
 using Lotus.Blog.Domain.Entities;
 using Lotus.Blog.TNT.Attribute;
 using Lotus.Blog.TNT.Autofac;
-using Lotus.Blog.TNT.Data.Entity;
 using Lotus.Blog.TNT.Data.Repository;
 using Lotus.Blog.TNT.Jwt;
 using Lotus.Blog.TNT.Service;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using NETCore.Encrypt;
 
-namespace Lotus.Blog.Application
+namespace Lotus.Blog.Application.Impl
 {
     public class AdminService : BaseService<Admin, IBaseDbRepository>, IDependency, IAdminService
     {

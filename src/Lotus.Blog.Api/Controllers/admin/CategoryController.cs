@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Lotus.Blog.Api.Controllers.admin
 {
     [AllowAnonymous]
-    [ApiExplorerSettings(GroupName = SwaggerExtensions.Grouping.GroupName_v2)]
     public class CategoryController : BackGroupEntityController<Category, CategoryDto, CreateOrUpdateCategoryDto>
     {
         public CategoryController(IService<Category> entityService, IMapper mapper) : base(entityService, mapper)

@@ -5,8 +5,8 @@ using Lotus.Blog.TNT.Data.Entity;
 
 namespace Lotus.Blog.Domain.Entities
 {
-    [Table("post_comment")]
-    public class PostComment : BaseEntity
+    [Table("comment")]
+    public class Comment : BaseEntity
     {
         [Column(TypeName = "varchar(100)")]
         [Required]
@@ -26,7 +26,13 @@ namespace Lotus.Blog.Domain.Entities
 
         [ForeignKey("PostId")]
         public Post Post { get; set; }
-        public int PostId { get; set; }
+        public int? PostId { get; set; }
+        
+        
+        [ForeignKey("LogId")]
+        public Log Log { get; set; }
+        
+        public int? LogId { get; set; }
 
         public bool AllowNotification { get; set; }
 
@@ -37,7 +43,7 @@ namespace Lotus.Blog.Domain.Entities
         public string Content { get; set; }
 
         [ForeignKey("ParentId")]
-        public PostComment ParentComment { get; set; }
+        public Comment ParentComment { get; set; }
         public int ParentId { get; set; }
     }
 }

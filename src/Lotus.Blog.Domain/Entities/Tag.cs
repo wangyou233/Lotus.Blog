@@ -21,5 +21,7 @@ namespace Lotus.Blog.Domain.Entities
         public int TagPostCount { get; set; }
         
         
+        
+        
     }
 }

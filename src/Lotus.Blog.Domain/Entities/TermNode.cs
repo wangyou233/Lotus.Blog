@@ -13,6 +13,11 @@ public class TermNode : BaseEntity
     [Column(TypeName = FieldTypes.VAR255)]
     public string Name { get; set; }
     
+    [Column(TypeName = FieldTypes.ID)]
+    public string ParentId { get; set; }
+
+    [ForeignKey("ParentId")]
+    public TermNode Parent { get; set; }
     
     [Column(TypeName = FieldTypes.ENUM)]
     public TermNodeType Type { get; set; }
@@ -20,7 +25,6 @@ public class TermNode : BaseEntity
     [Column(TypeName = FieldTypes.VAR255)]
     public string Description { get; set; }
 
-    
     
     [Column(TypeName = FieldTypes.JSON)]
     public string ExtData { get; set; }

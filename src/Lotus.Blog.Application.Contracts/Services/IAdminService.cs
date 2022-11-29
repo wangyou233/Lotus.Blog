@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using Lotus.Blog.Application.Contracts.Dto.Admin;
+﻿using Lotus.Blog.Application.Contracts.Dto.Admin;
 using Lotus.Blog.Application.Contracts.Models;
 using Lotus.Blog.Domain.Entities;
 using Lotus.Blog.TNT.Autofac;
 using Lotus.Blog.TNT.Service;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Lotus.Blog.Application.Contracts
+namespace Lotus.Blog.Application.Contracts.Services
 {
     public interface IAdminService : IService<Admin>,IDependency
     {

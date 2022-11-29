@@ -18,7 +18,7 @@ namespace Lotus.Blog.TNT.Web
     /// <summary>
     /// CURD基础
     /// </summary>
-    [Route("/api/admin/[controller]")]
+    [Route("/admin/[controller]")]
     [Authorize]
     public class BackGroupEntityController<TEntity, TDto, TCreateOrUpdateDto> : BaseController
         where TEntity : BaseEntity

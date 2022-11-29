@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Lotus.Blog.Domain.Entities;
+using Lotus.Blog.Domain.Shared.TermNode;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Lotus.Blog.EntityFrameworkCore
@@ -17,10 +18,10 @@ namespace Lotus.Blog.EntityFrameworkCore
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<PostComment> PostComments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Domain.Entities.File> Files { get; set; }
-        
+        public DbSet<UploadFile> UploadFiles { get; set; }
+
 
         public DbSet<Tag> Tags { get; set; }
 
@@ -32,19 +33,25 @@ namespace Lotus.Blog.EntityFrameworkCore
 
 
         public DbSet<Admin> Admins { get; set; }
-        
+
+        public DbSet<TermNode> TermNodes { get; set; }
+
+        public DbSet<Log> Logs { get; set; }
+
+        public DbSet<CustomView> CustomViews { get; set; }
+
         public AppDbContext(DbContextOptions options, DbConfig config) : base(options, config)
         {
-            
         }
 
-    
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TermNode>().HasData(new TermNode(){Type = TermNodeType.CreateSiteTime,Code = DateTime.Now.ToString()});
+        }
     }
-    
-    
-    
-    
-    
+
+
     public class AppMasterDbContext : AppDbContext<AppMasterDbContext>
     {
         public AppMasterDbContext(DbContextOptions<AppMasterDbContext> options, DbConfig config) : base(options, config)

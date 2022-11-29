@@ -3,6 +3,7 @@ using AutoMapper;
 using Lotus.Blog.Application.Contracts;
 using Lotus.Blog.Application.Contracts.Dto.Admin;
 using Lotus.Blog.Application.Contracts.Models;
+using Lotus.Blog.Application.Contracts.Services;
 using Lotus.Blog.Domain.Entities;
 using Lotus.Blog.TNT.Attribute;
 using Lotus.Blog.TNT.Service;

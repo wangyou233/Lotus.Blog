@@ -1,6 +1,7 @@
 using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
 using Lotus.Blog.Api;
+using Lotus.Blog.Application.Impl;
 using Lotus.Blog.Application.Profiles;
 using Lotus.Blog.EntityFrameworkCore;
 using Lotus.Blog.TNT.AgileConfig;
@@ -27,6 +28,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerUI();
 builder.Services.AddGlobalException();
 builder.WebHost.UseSerilogDefault();
+builder.Services.AddMemoryCache();
 // builder.WebHost.UseDefaultAgileConfig();
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
 
@@ -65,7 +67,6 @@ applicationBuilder.Use(next => context =>
     return next(context);
 });
 app.UseSwaggerUI();
-app.Services.MigrateMarketingDatabase();
 
 
 app.UseHttpsRedirection();
@@ -79,6 +80,14 @@ app.UseCors(options =>
 });
 app.UseMiddleware<GlobalMiddleware>();
 AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
+
+//检查迁移
+// app.Services.MigrateMarketingDatabase();
+
+//初始化内存数据
+// var scope = app.Services.CreateScope();
+// scope.ServiceProvider.GetRequiredService<StatisticsService>().Init();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

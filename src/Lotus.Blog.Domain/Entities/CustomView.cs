@@ -4,7 +4,7 @@ using Lotus.Blog.TNT.Data.Entity;
 
 namespace Lotus.Blog.Domain.Entities;
 
-public class View : Entity
+public class CustomView : BaseEntity
 {
     
     [Column(TypeName = FieldTypes.VAR255)]

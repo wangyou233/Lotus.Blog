@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lotus.Blog.TNT;
 
 namespace Lotus.Blog.Domain.Entities
 {
@@ -13,13 +14,13 @@ namespace Lotus.Blog.Domain.Entities
     {/// <summary>
      /// 标题
      /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR100)]
         public string Title { get; set; }
 
         /// <summary>
         /// 别名
         /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR100)]
         public string Alias { get; set; }
 
         /// <summary>
@@ -32,17 +33,18 @@ namespace Lotus.Blog.Domain.Entities
         /// <summary>
         /// 加密密码
         /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR100)]
         public string PassWord { get; set; }
         /// <summary>
         /// 自定义描述
         /// </summary>
-        [Column(TypeName = "text")]
+        [Column(TypeName = FieldTypes.TEXT)]
         public string CustomDescription { get; set; }
 
         /// <summary>
         /// 文章数
         /// </summary>
+        [Column(TypeName = FieldTypes.INT)]
         public int PostCount { get; set; }
     }
 }

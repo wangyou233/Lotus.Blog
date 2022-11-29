@@ -17,5 +17,9 @@ public enum TermNodeType
     [Description("SMTP配置")]
     SMTP,
     [Description("其他配置")]
-    Other
+    Other,
+    [Description("创建时间")]
+    CreateSiteTime,
+    [Description("站点路由")]
+    SiteUrl
 }

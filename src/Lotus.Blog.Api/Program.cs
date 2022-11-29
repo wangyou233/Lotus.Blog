@@ -24,24 +24,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//ע��Swagger
 builder.Services.AddSwaggerUI();
-//����ȫ�ִ���
 builder.Services.AddGlobalException();
-//ע����־
 builder.WebHost.UseSerilogDefault();
-//��������  ע��
 // builder.WebHost.UseDefaultAgileConfig();
-//ע��autoMapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AdminProfile)));
 
 
-//����ע��
 builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>()
     .AddTransient<IActionContextAccessor, ActionContextAccessor>().AddSingleton(builder.Configuration);
-//AutoFac ע��
 builder.Host.AddService();
-//Ipע��
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -49,11 +41,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 // builder.Services.AddSkyApmExtensions();
 // builder.Services.AddSkyAPM();
 
-//ע��һ��һ�����ݿ�
 DbConfig config = builder.Configuration.GetSection("Database").Get<DbConfig>();
 builder.Services.AddAppDbContext<AppMasterDbContext, AppSlaveDbContext, AppDbRepository>(config);
 
-//ע��Jwt��Ȩ
 JwtConfig jwtConfig = builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>();
 builder.Services.AddJwtAuthentication(jwtConfig);
 
@@ -74,9 +64,7 @@ applicationBuilder.Use(next => context =>
 
     return next(context);
 });
-//ʹ��Swagger
 app.UseSwaggerUI();
-//�Զ�Ǩ�����ݿ�
 app.Services.MigrateMarketingDatabase();
 
 
@@ -89,9 +77,7 @@ app.UseCors(options =>
     options.AllowAnyMethod();
     options.AllowAnyOrigin();
 });
-//��¼ȫ������
 app.UseMiddleware<GlobalMiddleware>();
-//AutoFacȫ��
 AutofacExtensions.Container = ((IApplicationBuilder)app).ApplicationServices.GetAutofacRoot();
 app.UseAuthentication();
 app.UseAuthorization();

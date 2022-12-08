@@ -6,6 +6,9 @@ namespace Lotus.Blog.Domain.Entities
 {
     public class UploadFile : BaseEntity
     {
+        
+        [Column(TypeName = FieldTypes.VAR255)]
+        public string Name { get; set; }
         [Column(TypeName = FieldTypes.VAR255)]
         public string Path { get; set; }
 

@@ -37,19 +37,15 @@ public class FileController : BaseController
         Response.Headers.Add("Access-Control-Expose-Headers","Content-Disposition,X-Suggested-Filename");
         return File(content, file.Type,file.FileName);
     }
-    
-    
-    
 
     /// <summary>
     /// 上传文件
     /// </summary>
-    /// <param name="tag">文件标签</param>
     /// <param name="files">文件</param>
     /// <returns></returns>
     [HttpPost("upload")]
     [DisableRequestSizeLimit]
-    public async Task<IList<UploadFile>> UploadFile(string tag, [FromForm] IList<IFormFile> files) 
+    public async Task<IList<UploadFile>> UploadFile([FromForm] IList<IFormFile> files) 
     {
         if (files == null || files.Count == 0)
         {

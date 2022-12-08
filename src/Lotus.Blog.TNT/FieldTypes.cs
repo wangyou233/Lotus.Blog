@@ -2,7 +2,7 @@ namespace Lotus.Blog.TNT;
 
 public class FieldTypes
 {
-    public const string ID = "varchar(36)";
+    public const string ID = "int";
 
     public const string ENUM = "varchar(50)";
 

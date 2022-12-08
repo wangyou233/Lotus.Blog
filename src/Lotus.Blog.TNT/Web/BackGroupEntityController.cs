@@ -9,6 +9,7 @@ using Lotus.Blog.TNT.Data.Dto;
 using Lotus.Blog.TNT.Data.Entity;
 using Lotus.Blog.TNT.Ext;
 using Lotus.Blog.TNT.Service;
+using Lotus.Blog.TNT.Swagger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace Lotus.Blog.TNT.Web
     /// </summary>
     [Route("/admin/[controller]")]
     [Authorize]
+    [ApiExplorerSettings(GroupName = SwaggerExtensions.Grouping.GroupName_v2)]
     public class BackGroupEntityController<TEntity, TDto, TCreateOrUpdateDto> : BaseController
         where TEntity : BaseEntity
         where TDto : BaseEntityDto

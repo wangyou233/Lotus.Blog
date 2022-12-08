@@ -10,6 +10,8 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Lotus.Blog.TNT.Ext
 {
@@ -18,6 +20,16 @@ namespace Lotus.Blog.TNT.Ext
     /// </summary>
     public static class ObjectExtensions
     {
+        public  static JsonSerializerSettings settings = new JsonSerializerSettings()
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            DateFormatString = "yyyy-MM-dd hh-mm-ss",
+            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+            Converters = new List<JsonConverter>()
+            {
+                new StringEnumConverter()
+            }
+        };
         /// <summary>
         /// 对象转json
         /// </summary>
@@ -25,7 +37,7 @@ namespace Lotus.Blog.TNT.Ext
         /// <returns></returns>
         public static string ToJson(this object obj)
         {
-            return JsonConvert.SerializeObject(obj);
+            return JsonConvert.SerializeObject(obj,settings);
         }
         /// <summary>
         /// 复制序列中的数据
@@ -214,7 +226,7 @@ namespace Lotus.Blog.TNT.Ext
                         if (!d.Success) //没有该属性
                             break;
 
-                        obj = d.Data;
+                        obj = d.Result;
                         if (obj == null)
                             break;
                     }
@@ -237,7 +249,7 @@ namespace Lotus.Blog.TNT.Ext
                                     break;
                                 }
 
-                                if (d2.Data == null)//属性值为空
+                                if (d2.Result == null)//属性值为空
                                 {
                                     var p2 = obj2.GetType().GetProperty(p);//获取属性
                                     var p2type = p2.PropertyType;
@@ -250,7 +262,7 @@ namespace Lotus.Blog.TNT.Ext
                                 }
                                 else
                                 {
-                                    obj2 = d2.Data;
+                                    obj2 = d2.Result;
                                 }
                             }
 

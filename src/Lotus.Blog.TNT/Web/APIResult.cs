@@ -33,28 +33,28 @@ namespace Lotus.Blog.TNT.Web
 
     public class ApiResult<T> : ApiResult
     {
-        public T Data { get; set; }
+        public T Result { get; set; }
         
         public static ApiResult<T> SuccessInstance(T data)
         {
-            return new ApiResult<T>() { Success = true, Code = "", Message = "", Data = data };
+            return new ApiResult<T>() { Success = true, Code = "", Message = "", Result = data };
 
         }
 
         public static ApiResult<T> FailInstance(string message, string code = "500")
         {
-            return new ApiResult<T>() { Success = false, Code = code, Message = message, Data = default(T) };
+            return new ApiResult<T>() { Success = false, Code = code, Message = message, Result = default(T) };
 
         }
 
         public static ApiResult<T> ParamsError(params string[] ps)
         {
-            return new ApiResult<T>() { Success = false, Code = "param-error", Message = "参数错误：" + ps.Join(","), Data = default(T) };
+            return new ApiResult<T>() { Success = false, Code = "param-error", Message = "参数错误：" + ps.Join(","), Result = default(T) };
         }
 
         public static ApiResult<T> DataNotExist()
         {
-            return new ApiResult<T>() { Success = false, Code = "not-exist", Message = "数据不存在", Data = default(T) };
+            return new ApiResult<T>() { Success = false, Code = "not-exist", Message = "数据不存在", Result = default(T) };
         }
     }
 

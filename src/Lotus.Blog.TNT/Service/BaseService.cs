@@ -146,6 +146,10 @@ namespace Lotus.Blog.TNT.Service
             {
                 query = query.OrderByDescending(sort);
             }
+            else
+            {
+                query = query.OrderByDescending(x => x.Created);
+            }
 
             if (!includePath.IsNullOrEmpty())
             {
@@ -205,6 +209,10 @@ namespace Lotus.Blog.TNT.Service
             if (sort != null)
             {
                 query = query.OrderByDescending(sort);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.Created);
             }
 
             var rows = new List<T>();

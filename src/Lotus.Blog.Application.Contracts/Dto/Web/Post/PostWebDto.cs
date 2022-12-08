@@ -3,9 +3,9 @@ using Lotus.Blog.Application.Contracts.Dto.Category;
 using Lotus.Blog.Domain.Shared.Posts;
 using Lotus.Blog.TNT.Data.Dto;
 
-namespace Lotus.Blog.Application.Contracts.Dto.Admin.Post;
+namespace Lotus.Blog.Application.Contracts.Dto.Web.Post;
 
-public class PostDto : BaseEntityDto
+public class PostWebDto : EntityDto
 {
     
     public string Title { get; set; }
@@ -14,7 +14,10 @@ public class PostDto : BaseEntityDto
 
     public string ImageUrl { get; set; }
 
-    public string PassWord { get; set; }
+    /// <summary>
+    /// 是否需要密码
+    /// </summary>
+    public bool IsPassword { get; set; }
 
     public string SeoSetting { get; set; }
 
@@ -32,15 +35,14 @@ public class PostDto : BaseEntityDto
     public string Markdown { get; set; }
 
     
-    public List<CategoryDto> Categories { get; set; }
-
+    public CategoryDto Category { get; set; }
 
     
     public PostStatus Status { get; set; }
 
     
-    public List<TagDto> Tags { get; set; }
+    public IList<TagDto> Tags { get; set; }
+
 
     public string Abstract { get; set; }
-
 }

@@ -70,26 +70,26 @@ namespace Lotus.Blog.Domain.Entities
         public string Markdown { get; set; }
 
         /// <summary>
-        /// 分类Id
-        /// </summary>
-        public int CategoryId { get; set; }
-
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
-        
-        /// <summary>
         /// 状态
         /// </summary>
         [Column(TypeName = FieldTypes.ENUM)]
         public PostStatus Status { get; set; }
 
+        
+        /// <summary>
+        /// 摘要
+        /// </summary>
+        [Column(TypeName = FieldTypes.VAR255)]
+        public string Abstract { get; set; }
 
         public int ReadCount { get; set; }
         [Column(TypeName = FieldTypes.JSON)]
         public string ExtData { get; set; }
+        
         public IQueryable<Comment> Comments { get; set; }
         
         
+        public IQueryable<Category> Categories { get; set; }
         public IQueryable<Tag> Tags { get; set; }
     }
 }

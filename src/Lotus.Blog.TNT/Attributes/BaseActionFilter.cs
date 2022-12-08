@@ -47,7 +47,7 @@ namespace Lotus.Blog.TNT.Attributes
                 Message = "请求成功！",
                 Code = "",
                 DateTime = DateTime.Now,
-                Data = data
+                Result = data
             };
 
             return JsonContent(res.ToJson());

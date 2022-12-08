@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Lotus.Blog.Domain.Entities;
 using Lotus.Blog.Domain.Shared.TermNode;
+using NETCore.Encrypt;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Lotus.Blog.EntityFrameworkCore
@@ -47,7 +48,30 @@ namespace Lotus.Blog.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TermNode>().HasData(new TermNode(){Type = TermNodeType.CreateSiteTime,Code = DateTime.Now.ToString()});
+            
+            modelBuilder.Entity<TermNode>()
+                .Property(p => p.Type)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<TermNode>()
+                .HasIndex(p => new { p.Code, p.Type });
+
+            modelBuilder.Entity<TermNode>()
+                .HasMany(p => p.Children)
+                .WithOne(p => p.Parent)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<TermNode>().HasData(new TermNode()
+                {Id = 1, Type = TermNodeType.CreateSiteTime, Code = DateTime.Now.ToString(),Description = "",ExtData = "{}",Name = "",ParentId = null});
+            modelBuilder.Entity<Admin>().HasData(new Admin()
+            {
+                Id = 1,
+                UserName= "admin",
+                NiceName = "admin",
+                AvatarUrl = "",
+                CustomDescription = "",
+                Password = EncryptProvider.Md5("admin")
+            });
         }
     }
 

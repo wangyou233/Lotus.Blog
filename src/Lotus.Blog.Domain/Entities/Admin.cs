@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lotus.Blog.TNT;
 
 namespace Lotus.Blog.Domain.Entities
 {
@@ -14,26 +15,26 @@ namespace Lotus.Blog.Domain.Entities
         /// <summary>
         /// 用户名
         /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR255)]
         public string UserName { get; set; }
 
         /// <summary>
         /// 昵称
         /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR255)]
         public string NiceName { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
-        [Column(TypeName = "varchar(100)")]
+        [Column(TypeName = FieldTypes.VAR255)]
         public string Password { get; set; }
 
 
         /// <summary>
         /// 头像
         /// </summary>
-        [Column(TypeName = "varchar(255)")]
+        [Column(TypeName = FieldTypes.VAR255)]
         public string AvatarUrl { get; set; }
 
         /// <summary>

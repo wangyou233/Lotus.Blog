@@ -37,19 +37,24 @@ public class InitService
         if (termNode != null)
         {
             var dateTime = termNode.Code.ToDateTime();
-            if (dateTime != null) dto.CreatedDay = DateTime.Now.Day - dateTime.Value.Day;
+            if (dateTime != null) dto.CreatedDay = DateTime.Now.Day + 1  - dateTime.Value.Day;
         }
-
+        
         dto.ReadCount = _postService.Query().Sum(x=>x.ReadCount);
-
+        
         dto.PostCount = _postService.Query().Count();
-
+        
         dto.CommitCount = _commentService.Query().Count();
-
+        
         dto.TagCount = _tagService.Query().Count();
         
         _memoryCache.Set(CacheKey.InitKey, dto.ToJson());
         
-        
+        var executablePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        var uploadPath = Path.Combine(executablePath, "upload");
+        if (!Directory.Exists(uploadPath))
+        {
+            Directory.CreateDirectory(uploadPath);
+        }
     }
 }

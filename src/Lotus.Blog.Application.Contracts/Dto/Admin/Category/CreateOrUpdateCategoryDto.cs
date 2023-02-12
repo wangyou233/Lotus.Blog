@@ -24,7 +24,7 @@ namespace Lotus.Blog.Application.Contracts.Dto.Category
         /// <summary>
         /// 上级目录
         /// </summary>
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         /// <summary>
         /// 加密密码
         /// </summary>

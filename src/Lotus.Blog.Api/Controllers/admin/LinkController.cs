@@ -9,6 +9,7 @@ namespace Lotus.Blog.Api.Controllers.admin;
 /// <summary>
 /// 友链
 /// </summary>
+
 public class LinkController: BackGroupEntityController<Link,LinkDto,LinkCreateOrUpdateDto>
 {
     public LinkController( IMapper mapper, ILinkService LinkService) : base(LinkService, mapper)

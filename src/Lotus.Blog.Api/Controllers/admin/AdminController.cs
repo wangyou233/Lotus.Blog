@@ -17,7 +17,7 @@ namespace Lotus.Blog.Api.Controllers.admin
     /// <summary>
     /// 管理员
     /// </summary>
-    
+    [Route("admin/accounts")]
     public class AdminController : BackGroupEntityController<Admin,AdminDto,CreateOrUpdateAdminDto>
     {
         private readonly IAdminService _adminService;

@@ -48,29 +48,67 @@ namespace Lotus.Blog.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<TermNode>()
                 .Property(p => p.Type)
                 .HasConversion<string>();
 
             modelBuilder.Entity<TermNode>()
-                .HasIndex(p => new { p.Code, p.Type });
+                .HasIndex(p => new {p.Code, p.Type});
 
             modelBuilder.Entity<TermNode>()
                 .HasMany(p => p.Children)
                 .WithOne(p => p.Parent)
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<TermNode>().HasData(new TermNode()
-                {Id = 1, Type = TermNodeType.CreateSiteTime, Code = DateTime.Now.ToString(),Description = "",ExtData = "{}",Name = "",ParentId = null});
+            {
+                Id = 1, Type = TermNodeType.CreateSiteTime, Code = DateTime.Now.ToString(), Description = "",
+                ExtData = "{}", Name = "", ParentId = null
+            });
             modelBuilder.Entity<Admin>().HasData(new Admin()
             {
                 Id = 1,
-                UserName= "admin",
+                UserName = "admin",
                 NiceName = "admin",
                 AvatarUrl = "",
                 CustomDescription = "",
                 Password = EncryptProvider.Md5("admin")
+            });
+            modelBuilder.Entity<Menu>().HasData(new List<Menu>()
+            {
+                new Menu()
+                {
+                    Id = 1,
+                    Sort = 1,
+                    Title = "首页",
+                    Path = "/",
+                    IsBlank = false,
+                },
+                new Menu()
+                {
+                    Id = 2,
+                    Sort = 2,
+                    Title = "文章归档",
+                    Path = "/archives",
+                    IsBlank = false,
+                },
+                new Menu()
+                {
+                    Id = 3,
+                    Sort = 3,
+                    Title = "日志",
+                    Path = "/journal",
+                    IsBlank = false,
+                },
+                new Menu()
+                {
+                    Id = 4,
+                    Sort = 4,
+                    Title = "关于",
+                    Path = "/view/about",
+                    IsBlank = false,
+                },
             });
         }
     }

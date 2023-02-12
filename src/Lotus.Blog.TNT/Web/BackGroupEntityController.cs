@@ -20,7 +20,7 @@ namespace Lotus.Blog.TNT.Web
     /// CURD基础
     /// </summary>
     [Route("/admin/[controller]")]
-    [Authorize]
+    // [Authorize]
     [ApiExplorerSettings(GroupName = SwaggerExtensions.Grouping.GroupName_v2)]
     public class BackGroupEntityController<TEntity, TDto, TCreateOrUpdateDto> : BaseController
         where TEntity : BaseEntity
@@ -151,5 +151,7 @@ namespace Lotus.Blog.TNT.Web
 
             await _entityService.SoftDeleteAsync(entity);
         }
+        
+        
     }
 }

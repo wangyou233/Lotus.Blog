@@ -48,7 +48,7 @@ public class InitService
         
         dto.TagCount = _tagService.Query().Count();
         
-        _memoryCache.Set(CacheKey.InitKey, dto.ToJson());
+        _memoryCache.Set(CacheKey.InitKey, dto);
         
         var executablePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         var uploadPath = Path.Combine(executablePath, "upload");

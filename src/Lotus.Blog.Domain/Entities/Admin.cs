@@ -9,7 +9,6 @@ using Lotus.Blog.TNT;
 
 namespace Lotus.Blog.Domain.Entities
 {
-    [Table("admins")]
     public class Admin : BaseEntity
     {
         /// <summary>

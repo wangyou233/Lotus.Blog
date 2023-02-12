@@ -54,7 +54,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-    options.SerializerSettings.DateFormatString = "yyyy-MM-dd hh-mm-ss";
+    options.SerializerSettings.DateFormatString = "yyyy-MM-dd hh:mm:ss";
     options.SerializerSettings.Converters.Add(new StringEnumConverter());
 });
 

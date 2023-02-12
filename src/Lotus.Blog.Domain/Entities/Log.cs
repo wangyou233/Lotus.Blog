@@ -21,8 +21,5 @@ public class Log : BaseEntity
     /// </summary>
     [Column(TypeName = FieldTypes.LONGTEXT)]
     public string Markdown { get; set; }
-    
-    
-    public IQueryable<Comment> Comments { get; set; }
 
 }

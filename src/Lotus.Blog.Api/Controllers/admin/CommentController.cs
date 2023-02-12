@@ -15,7 +15,7 @@ namespace Lotus.Blog.Api.Controllers.admin;
 /// <summary>
 /// 评论
 /// </summary>
-[ApiExplorerSettings(GroupName = SwaggerExtensions.Grouping.GroupName_v2)]
+[Route("admin/comments")]
 public class CommentController: BackGroupEntityController<Comment,CommentDto,CommentCreateOrUpdateDto>
 {
     public CommentController( IMapper mapper, ICommentService CommentService) : base(CommentService, mapper)

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lotus.Blog.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AppMasterDbContext))]
-    [Migration("20221208110723_init")]
-    partial class init
+    [Migration("20221222104658_f1")]
+    partial class f1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,20 +64,20 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("blog_admins");
+                    b.ToTable("blog_Admins");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AvatarUrl = "",
-                            Created = new DateTime(2022, 12, 8, 19, 7, 22, 824, DateTimeKind.Local).AddTicks(9379),
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 800, DateTimeKind.Local).AddTicks(8189),
                             CustomDescription = "",
                             IsDeleted = false,
                             NiceName = "admin",
                             Password = "21232F297A57A5A743894A0E4A801FC3",
                             UserName = "admin",
-                            Version = 0
+                            Version = 1
                         });
                 });
 
@@ -117,6 +117,9 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                     b.Property<int>("PostCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -128,7 +131,9 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("blog_categories");
+                    b.HasIndex("PostId");
+
+                    b.ToTable("blog_Categories");
                 });
 
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.Comment", b =>
@@ -148,6 +153,14 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("CommitStatus")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("CommitType")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -162,6 +175,9 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("EntityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("IpAddress")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -172,10 +188,6 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("LogId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("Modified")
                         .HasColumnType("datetime(6)");
 
@@ -183,10 +195,6 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PostCommentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("UserAgent")
@@ -198,13 +206,9 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LogId");
-
                     b.HasIndex("ParentId");
 
-                    b.HasIndex("PostId");
-
-                    b.ToTable("blog_comment");
+                    b.ToTable("blog_Comments");
                 });
 
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.CustomView", b =>
@@ -356,11 +360,101 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                     b.ToTable("blog_Logs");
                 });
 
+            modelBuilder.Entity("Lotus.Blog.Domain.Entities.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsBlank")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("Modified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menu");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 801, DateTimeKind.Local).AddTicks(7906),
+                            IsBlank = false,
+                            IsDeleted = false,
+                            Path = "/",
+                            Sort = 1,
+                            Title = "首页",
+                            Version = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 801, DateTimeKind.Local).AddTicks(7914),
+                            IsBlank = false,
+                            IsDeleted = false,
+                            Path = "/archives",
+                            Sort = 2,
+                            Title = "文章归档",
+                            Version = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 801, DateTimeKind.Local).AddTicks(7915),
+                            IsBlank = false,
+                            IsDeleted = false,
+                            Path = "/journal",
+                            Sort = 3,
+                            Title = "日志",
+                            Version = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 801, DateTimeKind.Local).AddTicks(7916),
+                            IsBlank = false,
+                            IsDeleted = false,
+                            Path = "/view/about",
+                            Sort = 4,
+                            Title = "关于",
+                            Version = 1
+                        });
+                });
+
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Abstract")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Alias")
                         .IsRequired()
@@ -369,9 +463,6 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
@@ -431,8 +522,6 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("blog_Posts");
                 });
@@ -617,14 +706,14 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "12/8/2022 7:07:22 PM",
-                            Created = new DateTime(2022, 12, 8, 19, 7, 22, 824, DateTimeKind.Local).AddTicks(9199),
+                            Code = "12/22/2022 6:46:57 PM",
+                            Created = new DateTime(2022, 12, 22, 18, 46, 57, 800, DateTimeKind.Local).AddTicks(7998),
                             Description = "",
                             ExtData = "{}",
                             IsDeleted = false,
                             Name = "",
                             Type = "CreateSiteTime",
-                            Version = 0
+                            Version = 1
                         });
                 });
 
@@ -685,45 +774,22 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Lotus.Blog.Domain.Entities.Post", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("PostId");
+
                     b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("Lotus.Blog.Domain.Entities.Log", "Log")
-                        .WithMany("Comments")
-                        .HasForeignKey("LogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Lotus.Blog.Domain.Entities.Comment", "ParentComment")
                         .WithMany()
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Lotus.Blog.Domain.Entities.Post", "Post")
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Log");
-
                     b.Navigation("ParentComment");
-
-                    b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("Lotus.Blog.Domain.Entities.Post", b =>
-                {
-                    b.HasOne("Lotus.Blog.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.PostTag", b =>
@@ -762,14 +828,9 @@ namespace Lotus.Blog.EntityFrameworkCore.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Lotus.Blog.Domain.Entities.Log", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("Lotus.Blog.Domain.Entities.Post", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Categories");
 
                     b.Navigation("Tags");
                 });

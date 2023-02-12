@@ -20,16 +20,17 @@ namespace Lotus.Blog.TNT.Ext
     /// </summary>
     public static class ObjectExtensions
     {
-        public  static JsonSerializerSettings settings = new JsonSerializerSettings()
+        public readonly static JsonSerializerSettings settings = new JsonSerializerSettings()
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            DateFormatString = "yyyy-MM-dd hh-mm-ss",
-            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+            DateFormatString = "yyyy-MM-dd hh:mm:ss",
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             Converters = new List<JsonConverter>()
             {
                 new StringEnumConverter()
             }
         };
+
         /// <summary>
         /// 对象转json
         /// </summary>
@@ -37,8 +38,9 @@ namespace Lotus.Blog.TNT.Ext
         /// <returns></returns>
         public static string ToJson(this object obj)
         {
-            return JsonConvert.SerializeObject(obj,settings);
+            return JsonConvert.SerializeObject(obj, settings);
         }
+
         /// <summary>
         /// 复制序列中的数据
         /// </summary>
@@ -55,6 +57,7 @@ namespace Lotus.Blog.TNT.Ext
 
             return newArray;
         }
+
         /// <summary>
         /// json转对象
         /// </summary>
@@ -112,7 +115,7 @@ namespace Lotus.Blog.TNT.Ext
         public static bool HasProperty(this object data, string propertyname)
         {
             if (data is ExpandoObject)
-                return ((IDictionary<string, object>)data).ContainsKey(propertyname);
+                return ((IDictionary<string, object>) data).ContainsKey(propertyname);
 
             return data.GetType().GetProperty(propertyname) != null;
         }
@@ -130,7 +133,7 @@ namespace Lotus.Blog.TNT.Ext
                 return def;
 
             if (data is ExpandoObject)
-                return ((IDictionary<string, object>)data)[propertyname].TryParseInt(def);
+                return ((IDictionary<string, object>) data)[propertyname].TryParseInt(def);
 
             return data.GetType().GetProperty(propertyname).GetValue(data).TryParseInt(def);
         }
@@ -147,7 +150,7 @@ namespace Lotus.Blog.TNT.Ext
                 return def;
 
             if (obj is int)
-                return (int)obj;
+                return (int) obj;
 
             return obj.ToString().ToInt().Value;
         }
@@ -177,7 +180,7 @@ namespace Lotus.Blog.TNT.Ext
             using (MemoryStream ms = new MemoryStream(bytes))
             {
                 IFormatter formatter = new BinaryFormatter();
-                return (T)formatter.Deserialize(ms);
+                return (T) formatter.Deserialize(ms);
             }
         }
 
@@ -194,7 +197,6 @@ namespace Lotus.Blog.TNT.Ext
             var props = type.GetProperties();
             foreach (var prop in props)
             {
-
                 var prop2 = type2.GetProperty(prop.Name);
                 if (prop2 == null || !prop2.CanWrite)
                 {
@@ -206,6 +208,7 @@ namespace Lotus.Blog.TNT.Ext
                 prop2.SetValue(tar, val);
             }
         }
+
         public static void CopyTo(this object src, object tar, ICollection<string> includes)
         {
             var type = src.GetType();
@@ -213,7 +216,6 @@ namespace Lotus.Blog.TNT.Ext
 
             foreach (var name in includes)
             {
-
                 if (name.IndexOf('.') > 0)
                 {
                     //嵌套对象
@@ -230,6 +232,7 @@ namespace Lotus.Blog.TNT.Ext
                         if (obj == null)
                             break;
                     }
+
                     if (obj != null)
                     {
                         var prop = obj.GetType().GetProperty(arr[arr.Length - 1]);
@@ -249,14 +252,14 @@ namespace Lotus.Blog.TNT.Ext
                                     break;
                                 }
 
-                                if (d2.Result == null)//属性值为空
+                                if (d2.Result == null) //属性值为空
                                 {
-                                    var p2 = obj2.GetType().GetProperty(p);//获取属性
+                                    var p2 = obj2.GetType().GetProperty(p); //获取属性
                                     var p2type = p2.PropertyType;
 
                                     var newObj = Activator.CreateInstance(p2type);
 
-                                    p2.SetValue(obj2, newObj);//创建一个新实例
+                                    p2.SetValue(obj2, newObj); //创建一个新实例
 
                                     obj2 = newObj;
                                 }
@@ -274,7 +277,6 @@ namespace Lotus.Blog.TNT.Ext
                                     prop2.SetValue(obj2, val);
                                 }
                             }
-
                         }
                     }
                 }
@@ -294,6 +296,7 @@ namespace Lotus.Blog.TNT.Ext
                 }
             }
         }
+
         public static ApiResult<object> GetProp(object obj, string propName)
         {
             var prop = obj.GetType().GetProperty(propName);
@@ -304,7 +307,5 @@ namespace Lotus.Blog.TNT.Ext
 
             return ApiResult<object>.SuccessInstance(val);
         }
-
     }
-   
 }

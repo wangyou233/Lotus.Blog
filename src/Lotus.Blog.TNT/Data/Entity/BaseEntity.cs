@@ -19,7 +19,7 @@ namespace Lotus.Blog.TNT.Data.Entity
         /// <summary>
         /// 版本号
         /// </summary>
-        public int Version { get; set; }
+        public int Version { get; set; } = 1;
 
 
         /// <summary>

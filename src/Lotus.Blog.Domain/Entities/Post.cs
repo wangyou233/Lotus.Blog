@@ -86,8 +86,6 @@ namespace Lotus.Blog.Domain.Entities
         [Column(TypeName = FieldTypes.JSON)]
         public string ExtData { get; set; }
         
-        public IQueryable<Comment> Comments { get; set; }
-        
         
         public IQueryable<Category> Categories { get; set; }
         public IQueryable<Tag> Tags { get; set; }

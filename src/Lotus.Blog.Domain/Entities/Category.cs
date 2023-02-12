@@ -9,7 +9,6 @@ using Lotus.Blog.TNT;
 
 namespace Lotus.Blog.Domain.Entities
 {
-    [Table("categories")]
     public class Category : BaseEntity
     {/// <summary>
      /// 标题
@@ -26,7 +25,7 @@ namespace Lotus.Blog.Domain.Entities
         /// <summary>
         /// 上级目录
         /// </summary>
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         [ForeignKey("ParentId")]
         public Category Parent { get; set; }
